@@ -12,13 +12,15 @@
     "ts": "node --loader ts-node/esm"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.883.0",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "googleapis": "^159.0.0",
     "pg": "^8.16.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

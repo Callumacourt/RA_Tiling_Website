@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import { mockList } from '../config/drive'
-import { listFiles, downloadFile } from '../services/driveService';
+import { mockList } from '../../config/drive'
+import { listFiles } from '../../services/driveService';
 
 vi.mock('../config/drive', () => {
     const mockList = vi.fn().mockResolvedValue({ data: { files: [] } });
@@ -61,8 +61,8 @@ vi.mock('fs', () => {
 
 describe('downloadFile', () => {
     it('successfully downloads files', async () => {
-        const { downloadFile } = await import ('../services/driveService');
-        const { mockGet } = await import ('../config/drive');
+        const { downloadFile } = await import ('../../services/driveService');
+        const { mockGet } = await import ('../../config/drive');
 
         const fakeStream = {
             on: vi.fn((event, cb) => {

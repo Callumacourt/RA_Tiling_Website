@@ -1,8 +1,11 @@
 import { drive } from "../config/drive.js";
 import { createWriteStream } from "fs";
-import sharp from "sharp";
 
-// Lists all image files in the googleDrive folder for the gallery
+/**
+ * 
+ * @param {*} folderId  - String id value for a Google Drive folder
+ * @returns - An array of file objects with id, name and mimeType vaues
+ */
 export async function listFiles(folderId) {
     try {
         const res = await drive.files.list({
@@ -18,7 +21,12 @@ export async function listFiles(folderId) {
     }
 }
 
-// Download an individual file from the drive
+/**
+ * 
+ * @param {*} fileId - String value for a files ID
+ * @param {*} destPath - String of the desired output folder path for the downloaded image
+ * @returns 
+ */
 export async function downloadFile(fileId, destPath) {
     try {
         const res = await drive.files.get(
@@ -39,13 +47,4 @@ export async function downloadFile(fileId, destPath) {
         console.error(`Error initiating download for file ${fileId}:`, err);
         throw new Error(`Failed to initiate download for file ${fileId}`);
     }
-}
-
-
-const files = await listFiles(`1h9itLF-gu_Bl2zHtBPB_HPy-HhAtW6S-`);
-console.log(files);
-
-if (files.length > 0) {
-    const fileId = files[0].id;
-    await downloadFile(fileId, `../downloads/${files[0].name}`);
 }
