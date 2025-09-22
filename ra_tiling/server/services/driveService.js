@@ -23,9 +23,33 @@ export async function listFiles(folderId) {
 
 /**
  * 
+ * @param {*} s3Files - An array of file name keys from the S3 bucket i.e. thumbnail-desktop.png
+ * @param {*} driveFiles - An array of file objects with id, name and mimeType vaues
+ * @returns - An array of missing file keys
+ */
+export async function detectDeletions(s3Files, driveFiles) {
+    const missingFiles = [];
+
+    const driveNames = driveFiles.map(f => f.name.replace(/\.[^/.]+$/, "")); // Remove extension
+
+    for (const key of s3Files) {
+        // Remove suffix (-mobile, -tablet, -desktop) and extension
+        const baseName = key.replace(/-(mobile|tablet|desktop)\.webp$/, "")
+                            .replace(/\.[^/.]+$/, "");
+        const found = driveNames.includes(baseName);
+        console.log(`Checking S3 key: ${key} (base: ${baseName}) -- Found in Drive: ${found}`);
+        if (!found) {
+            missingFiles.push(key);
+        }
+    }
+    return missingFiles;
+}
+
+/**
+ * 
  * @param {*} fileId - String value for a files ID
  * @param {*} destPath - String of the desired output folder path for the downloaded image
- * @returns 
+ * @returns - Promise that if resolved writes the file to given destPath
  */
 export async function downloadFile(fileId, destPath) {
     try {

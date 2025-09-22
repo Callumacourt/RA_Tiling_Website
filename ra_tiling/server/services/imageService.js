@@ -1,5 +1,6 @@
 import sharp from "sharp";
 import path from "path";
+import fs from "fs/promises";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -29,4 +30,20 @@ export async function createResponsiveImages(inputPath, outputBaseName) {
     );
 
     await Promise.all(promises);
+}
+
+export async function deleteImages(dirPath, namePrefixes) {
+    console.log('Calling delete images');
+    const files = await fs.readdir(dirPath);
+    console.log(`Directory ${dirPath}`)
+    console.log(`Directory ${dirPath} contents = ${files}`);
+    console.log(`File name prefixes ${namePrefixes}`);
+    const matchingFiles = files.filter(file =>
+        namePrefixes.some(prefix => file.startsWith(prefix))
+    );
+    await Promise.all(
+        matchingFiles.map(file =>
+            fs.unlink(path.join(dirPath, file))
+        )
+    );
 }
