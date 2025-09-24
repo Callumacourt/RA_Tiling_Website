@@ -43,7 +43,7 @@ export default async function syncDriveToS3 () {
     // Create responsive images from each file
     for (const file of files) {
         const filePath = path.join(downloadsDir, file.name);
-        await createResponsiveImages(filePath, file.name.replace(/\.[^/.]+$/, ""));
+        await createResponsiveImages(filePath, optimisedDir, file.name.replace(/\.[^/.]+$/, ""));
     }
 
     const finalImages = await fs.readdir(optimisedDir);

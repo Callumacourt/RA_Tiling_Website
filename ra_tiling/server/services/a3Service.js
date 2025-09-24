@@ -11,7 +11,7 @@ dotenv.config({ path: path.resolve(__dirname, "../.env") }); // loads server/.en
 /**
  * AWS bucket credentials
  */
-const s3 = new S3Client({
+export const s3 = new S3Client({
   region: "eu-north-1",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -45,6 +45,7 @@ export async function lists3Files() {
   })
   const response = await s3.send(command);
   // Map array of file objects to just their keys
+  console.log(`default response ${Object.entries(response)}`)
   return response.Contents?.map(obj => obj.Key) || [];
 };
 

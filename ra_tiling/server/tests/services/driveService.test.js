@@ -1,19 +1,22 @@
-import { describe, it, expect, vi } from 'vitest';
-import { mockList } from '../../config/drive'
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { listFiles } from '../../services/driveService';
 
-vi.mock('../config/drive', () => {
+vi.mock('../../config/drive', () => {
     const mockList = vi.fn().mockResolvedValue({ data: { files: [] } });
     const mockGet = vi.fn();
     return {
-        drive: { files: { list: mockList, get: mockGet } },
         __esModule: true,
-        mockList,
-        mockGet
+        drive: { files: { list: mockList, get: mockGet } }
     };
 });
 
 describe('listFiles', () => {
+    let mockList;
+
+    beforeEach(async () => {
+        ({ drive: { files: { list: mockList } } } = await import('../../config/drive'));
+    });
+
     it('should list files', async () => {
         mockList.mockResolvedValueOnce({
             data: { files: [{ id: 'img1', name: 'image1.jpg', mimeType: 'image/jpeg' }] }
@@ -34,7 +37,7 @@ describe('listFiles', () => {
 
     it('should handle API error', async () => {
         mockList.mockRejectedValueOnce(new Error('Drive API failed'));
-        await expect(listFiles('mock-id')).rejects.toThrow('Drive API failed');
+        await expect(listFiles('mock-id')).rejects.toThrow("Failed to list files for folder mock-id");
     })
 
     it('rejects files without mimetype', async () => {
@@ -60,9 +63,14 @@ vi.mock('fs', () => {
 });
 
 describe('downloadFile', () => {
+    let mockGet;
+
+    beforeEach(async () => {
+        ({ drive: { files: { get: mockGet } } } = await import('../../config/drive'));
+    });
+
     it('successfully downloads files', async () => {
-        const { downloadFile } = await import ('../../services/driveService');
-        const { mockGet } = await import ('../../config/drive');
+        const { downloadFile } = await import('../../services/driveService');
 
         const fakeStream = {
             on: vi.fn((event, cb) => {
@@ -71,8 +79,9 @@ describe('downloadFile', () => {
             }),
             pipe: vi.fn().mockReturnThis()
         };
+
         mockGet.mockResolvedValueOnce({ data: fakeStream });
-        // Completes successfully
+
         await expect(downloadFile('fileId', 'destpath')).resolves.toBeUndefined();
-    })
-})
+    });
+});
