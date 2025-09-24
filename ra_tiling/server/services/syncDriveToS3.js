@@ -24,12 +24,13 @@ export default async function syncDriveToS3 () {
     // Detect deletions in drive, delete in s3 if needed
     const deletions = await detectDeletions(s3Files, files)
 
-    if (deletions.length > 0) { 
+    if (deletions && deletions.length > 0) { 
         await deleteFromS3(deletions)
         await deleteImages(optimisedDir, deletions);
         await deleteImages(downloadsDir, deletions); 
     }
 
+    console.log(`S3 Files content ${s3Files}`)
     // Download all new files
     for (const file of files) {
         // Skip already downloaded files
