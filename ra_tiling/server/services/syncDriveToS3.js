@@ -1,9 +1,11 @@
 import { listFiles, downloadFile, detectDeletions } from "./driveService.js";
 import { createResponsiveImages, deleteImages } from "./imageService.js";
 import { uploadToS3, deleteFromS3, lists3Files } from "./a3Service.js";
-import fs from "fs/promises";
+import fs from "fs";
+import fsp from "fs/promises"
 import path from "path";
 import { fileURLToPath } from "url";
+
 
 // Get the directory of the current file
 const __filename = fileURLToPath(import.meta.url);
@@ -35,24 +37,39 @@ export default async function syncDriveToS3 () {
     for (const file of files) {
         // Skip already downloaded files
         if (s3Files.some(s3File => s3File === file.name)) {
-            continue
+            console.log('Already present in s3, skipping')
+            continue;
+        }
+        
+        if (fs.existsSync(path.join(downloadsDir, file.name))) {
+            console.log(`Skipping ${file.name}`)
+            continue;
         }
         const filePath = path.join(downloadsDir, file.name);
-        await downloadFile(file.id, filePath);
+        console.log("Attempting to save:", filePath);
+        try {
+            await downloadFile(file.id, filePath);
+        } catch (err) {
+            console.error("Download failed for", file.name, err);
+        }
+        console.log('successful')
     }
 
     // Create responsive images from each file
     for (const file of files) {
         const filePath = path.join(downloadsDir, file.name);
+        if (fs.existsSync(filePath)) {
+            continue;
+        }
         await createResponsiveImages(filePath, optimisedDir, file.name.replace(/\.[^/.]+$/, ""));
     }
 
-    const finalImages = await fs.readdir(optimisedDir);
+    const finalImages = await fsp.readdir(optimisedDir);
 
     // Upload responsive images to S3
     for (const imageName of finalImages) {
         if (s3Files.includes(imageName)) {
-            continue; // Skip if already in S3
+            continue; 
         }
         const imagePath = path.join(optimisedDir, imageName);
         await uploadToS3(imagePath, imageName);
