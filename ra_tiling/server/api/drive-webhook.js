@@ -3,12 +3,17 @@ import syncDriveToS3 from "../services/syncDriveToS3";
 const app = express();
 app.use(express.json());
 
-// POST handler for Google Drive notifications
+/**
+ * WebHook calls sync with drive
+ */
 app.post('/api/drive-webhook', async (req, res) => {
+    console.log('Webhook hit');
+    res.send('api called');
     try {
         await syncDriveToS3();
+        console.log('Sync complete');
     } catch (error) {
-        console.log(error);
+        console.error('Sync failed:', error);
     }
 });
 
