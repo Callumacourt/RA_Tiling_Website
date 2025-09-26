@@ -1,4 +1,4 @@
-import syncDriveToS3 from "../services/syncDriveToS3.js";
+import syncDriveToS3 from "../services/syncDriveToS3.tsx";
 
 export async function syncWithDrive(req, res) {
     try {

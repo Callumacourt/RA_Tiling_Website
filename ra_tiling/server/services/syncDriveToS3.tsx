@@ -47,12 +47,19 @@ const handleDownloads = async (files: DriveFile[], normalizedS3Files: Set<string
     }
 }
 
+/**
+ * Handles deleting from S3 bucket when a file is deleted from the drive
+ * @param deletions - Array of files to delete
+ */
 const handleDeletions = async (deletions: string[]) => {
     await deleteFromS3(deletions);
-    await deleteImages(optimisedDir, deletions);
+    await deleteImages(optimisedDir, deletions); // In case it persists locally for some reason
     await deleteImages(downloadsDir, deletions);
 }
 
+/**
+ * Creates responsive webp images from inputted drive folder images
+*/
 const handleResponsive = async (files: DriveFile[], normalizedS3Files: Set<string>) => {
     for (const file of files) {
         const normalisedName = normaliseFileName(file.name);
@@ -68,6 +75,10 @@ const handleResponsive = async (files: DriveFile[], normalizedS3Files: Set<strin
     }
 }
 
+/**
+ * Uploads responsive images to the S3 bucket
+ * @param finalImages -Images that have been put through handleResponsive and are in ./optimised
+ */
 const handleUploads = async (finalImages : string[] , normalizedS3Files: Set<string>) => {
     for (const imageName of finalImages) {
         const normalizedImageName = normaliseFileName(imageName);
@@ -85,7 +96,7 @@ const handleUploads = async (finalImages : string[] , normalizedS3Files: Set<str
 }
 
 /**
- * Script that syncs the current state of the drive folder to the S3 Bucket
+ * Orchestrator script that syncs the current state of the drive folder to the S3 Bucket
  * which serves images to the frontend
  */
 export default async function syncDriveToS3() {
@@ -104,5 +115,3 @@ export default async function syncDriveToS3() {
     const finalImages = await fsp.readdir(optimisedDir);
     await handleUploads(finalImages, normalizedS3Files);
 };
-
-syncDriveToS3();
