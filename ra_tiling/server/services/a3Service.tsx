@@ -8,6 +8,8 @@ const __dirname = path.dirname(__filename);
 import dotenv from "dotenv";
 dotenv.config({ path: path.resolve(__dirname, "../.env") }); // loads server/.env
 
+if (!process.env.AWS_ACCESS_KEY || !process.env.AWS_SECRET_KEY) throw new Error ('Missing AWS .env variables')
+
 /**
  * AWS bucket credentials
  */
@@ -18,42 +20,41 @@ export const s3 = new S3Client({
     secretAccessKey: process.env.AWS_SECRET_KEY
   }
 });
-
-
 /**
  * 
  * @param {*} localPath - String path to the image
  * @param {*} key - String key value used as name in the bucket
  */
-export async function uploadToS3(localPath, key) {
+export async function uploadToS3(localPath : string, key : string) {
   const fileStream = fs.createReadStream(localPath);
   await s3.send(new PutObjectCommand({
     Bucket: "ra-tiling-bucket",
     Key: key,
     Body: fileStream,
   }));
-  console.log(`Uploaded: https://<your-cloudfront-id>.cloudfront.net/${key}`);
+  console.log(`Uploaded:${key}`);
 }
 
 /**
  * Gets files from the s3 bucket
  * @returns An array of file key names from the S3 bucket
  */
-export async function lists3Files() {
+export async function lists3Files() : Promise <string[]> {
   const command  = new ListObjectsV2Command({
     Bucket: "ra-tiling-bucket"
   })
   const response = await s3.send(command);
   // Map array of file objects to just their keys
   console.log(`default response ${Object.entries(response)}`)
-  return response.Contents?.map(obj => obj.Key) || [];
+  // Ensure key is of type string
+  return response.Contents?.map(obj => obj.Key).filter((key) :  key is string => !!key) || [];
 };
 
 /**
  * Deletes files associated with the input keys from the S3 bucket
  * @param {*} keys - An array of file key names from the S3 bucket
  */
-export async function deleteFromS3(keys) {
+export async function deleteFromS3(keys : string[]) {
   console.log(`Keys to delete ${keys}`)
  const command = new DeleteObjectsCommand({
   Bucket: "ra-tiling-bucket",

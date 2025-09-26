@@ -1,25 +1,47 @@
 import { drive } from "../config/drive.js";
 import { createWriteStream } from "fs";
 
+interface DriveFile {
+    id: string,
+    name : string,
+    mimeType: string,
+}
+
 /**
  * 
  * @param {*} folderId  - String id value for a Google Drive folder
  * @returns - An array of file objects with id, name and mimeType vaues
  */
-export async function listFiles(folderId) {
+export async function listFiles(folderId : string) : Promise <DriveFile[]> {
     try {
         const res = await drive.files.list({
             q: `'${folderId}' in parents and trashed = false`,
             fields: "files(id, name, mimeType)",
         });
-        return (res.data.files || []).filter(
-            file => file.mimeType && file.mimeType.startsWith('image/')
-        );
+
+        const files = res.data.files;
+        if (files === undefined) {
+            return [];
+        }
+        
+    // Assert that incoming files have name, string and mimeType then return them
+    return files
+      .filter(
+        (file): file is { id: string; name: string; mimeType: string } =>
+          !!file.id && !!file.name && !!file.mimeType && file.mimeType.startsWith("image/")
+      )
+      .map(file => ({
+        id: file.id,
+        name: file.name,
+        mimeType: file.mimeType,
+      }));
+
     } catch (error) {
         console.error(`Error listing files for folder ${folderId}:`, error);
         throw new Error(`Failed to list files for folder ${folderId}`);
     }
 }
+
 
 /**
  * 
@@ -27,8 +49,8 @@ export async function listFiles(folderId) {
  * @param {*} driveFiles - An array of file objects with id, name and mimeType vaues
  * @returns - An array of missing file keys
  */
-export async function detectDeletions(s3Files, driveFiles) {
-    const missingFiles = [];
+export async function detectDeletions(s3Files : string [], driveFiles : DriveFile []) :  Promise <string[]>{
+    const missingFiles: string [] = [];
 
     const driveNames = driveFiles.map(f => f.name.replace(/\.[^/.]+$/, "")); // Remove extension
 
@@ -51,13 +73,13 @@ export async function detectDeletions(s3Files, driveFiles) {
  * @param {*} destPath - String of the desired output folder path for the downloaded image
  * @returns - Promise that if resolved writes the file to given destPath
  */
-export async function downloadFile(fileId, destPath) {
+export async function downloadFile(fileId : string, destPath : string) : Promise<void> {
     try {
         const res = await drive.files.get(
             { fileId, alt: "media" },
             { responseType: 'stream' }
         );
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             const dest = createWriteStream(destPath);
             res.data
                 .on("end", () => resolve())

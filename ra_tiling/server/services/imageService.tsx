@@ -7,7 +7,7 @@ import fs from "fs/promises";
  * @param inputPath - String file path for an image
  * @param outputBaseName - String name of the image without it's file type i.e. carImg.png = carImg
  */
-export async function createResponsiveImages(inputPath, outputDir, outputBaseName) {
+export async function createResponsiveImages(inputPath : string, outputDir : string, outputBaseName : string) {
     // Define sizes for mobile, tablet, desktop
     const sizes = [
         { name: "mobile", width: 480 },
@@ -27,7 +27,7 @@ export async function createResponsiveImages(inputPath, outputDir, outputBaseNam
     await Promise.all(promises);
 }
 
-export async function deleteImages(dirPath, namePrefixes) {
+export async function deleteImages(dirPath : string, namePrefixes : string []) {
     console.log('Calling delete images');
     const files = await fs.readdir(dirPath);
     console.log(`Directory ${dirPath}`)
