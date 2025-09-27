@@ -16,7 +16,6 @@ interface DriveFile {
     name: string;
 }
 
-
 function normaliseFileName(fileName: string) {
     const base = String(fileName).replace(/\.[^/.]+$/, "");
     return base.replace(/-(mobile|tablet|desktop)$/, "");
@@ -109,7 +108,7 @@ export default async function syncDriveToS3() {
     if (deletions && deletions.length > 0) {
        handleDeletions(deletions);
     }
-
+    
     await handleDownloads(files, normalizedS3Files);
     await handleResponsive(files, normalizedS3Files);
     const finalImages = await fsp.readdir(optimisedDir);

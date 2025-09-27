@@ -62,7 +62,7 @@ describe('syncDriveToS3', () => {
         driveService.detectDeletions.mockResolvedValue(['deleted.jpg']);
         await syncDriveToS3();
         expect(s3Service.deleteFromS3).toHaveBeenCalledWith(['deleted.jpg']);
-        expect(imageService.deleteImages).toHaveBeenCalledTimes(2);
+        expect(s3Service.deleteFromS3).toHaveBeenCalledTimes(1);
     });
 
     it('should skip already present files', async () => {

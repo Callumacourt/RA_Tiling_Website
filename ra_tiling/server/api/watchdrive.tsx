@@ -14,11 +14,11 @@ export async function watchDriveFolder(ngrokUrl: string) {
     const channelId = uuidv4(); // generate a new unique channel ID
     try {
         const res = await drive.files.watch({
-            fileId: '1h9itLF-gu_Bl2zHtBPB_HPy-HhAtW6S-', // your folder ID
+            fileId: '1h9itLF-gu_Bl2zHtBPB_HPy-HhAtW6S-', 
             requestBody: {
                 id: channelId,
                 type: 'web_hook',
-                address: `${ngrokUrl}/api/drive-webhook`,
+                address: `${ngrokUrl}/api/drive-webhook`, // will be site url when live
             },
         });
 
