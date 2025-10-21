@@ -7,6 +7,9 @@ export default defineConfig({
     environment: 'jsdom',
   },
   server: {
-    allowedHosts: true, 
+    allowedHosts: true,
+    proxy: {
+      '/fetch-gallery': 'http://localhost:3001',
+    },
   }
 })
