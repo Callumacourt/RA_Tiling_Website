@@ -1,5 +1,5 @@
-export function getWindowWidth () {
-    let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+export function getWindowWidth() {
+    let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
     let viewPort = '';
 
     enum DeviceType {
@@ -8,15 +8,13 @@ export function getWindowWidth () {
         DESKTOP = "desktop"
     }
 
-    switch(vw) {
-        case 768 :
+    if (vw <= 768) {
         viewPort = DeviceType.MOBILE;
-        break;
-        case 1024 : 
+    } else if (vw <= 1024) {
         viewPort = DeviceType.TABLET;
-        break;
-        default:
+    } else {
         viewPort = DeviceType.DESKTOP;
-    };
+    }
+
     return viewPort;
-};
+}

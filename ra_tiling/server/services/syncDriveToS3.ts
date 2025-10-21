@@ -82,20 +82,15 @@ const handleUploads = async (finalImages : string[] , normalizedS3Files: Set<str
     }
 }
 
+// 
 export default async function syncDriveToS3(optimisedDirectory : string = optimisedDir) {
-    console.log("[syncDriveToS3] Starting sync...");
     const files = await listFiles(`1h9itLF-gu_Bl2zHtBPB_HPy-HhAtW6S-`);
-    console.log("[syncDriveToS3] Drive files:", files);
-
     const s3Files = await lists3Files();
-    console.log("[syncDriveToS3] S3 files:", s3Files);
 
     const deletions = await detectDeletions(s3Files, files);
-    console.log("[syncDriveToS3] Deletions to process:", deletions);
 
     const normalizedS3Files = new Set<string>();
     s3Files.forEach((s3File) => normalizedS3Files.add(normaliseFileName(s3File)));
-    console.log("[syncDriveToS3] Normalized S3 files:", normalizedS3Files);
 
     if (deletions && deletions.length > 0) {
         await handleDeletions(deletions);
@@ -105,9 +100,9 @@ export default async function syncDriveToS3(optimisedDirectory : string = optimi
     await handleResponsive(files, normalizedS3Files);
 
     const finalImages = await fsp.readdir(optimisedDirectory);
-    console.log("[syncDriveToS3] Images ready for upload:", finalImages);
 
     await handleUploads(finalImages, normalizedS3Files);
+
     invalidateGalleryCache();
     
     console.log("[syncDriveToS3] Sync complete.");

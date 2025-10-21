@@ -8,8 +8,16 @@ export default function GalleryPage() {
     const [viewPort, setViewport] = useState(getWindowWidth());
 
     useEffect(() => {
-        const handleResize = () => setViewport(getWindowWidth());
-        window.addEventListener("resize", handleResize);  
+        const handleResize = () => {
+            const newViewport = getWindowWidth();
+            setViewport(newViewport);
+            console.log("New viewport:", newViewport); 
+        };
+        
+        window.addEventListener("resize", handleResize);
+        console.log("Initial viewport:", viewPort); 
+
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     useEffect(() => {
@@ -26,7 +34,7 @@ export default function GalleryPage() {
             <h1>Gallery Page</h1>
             <div className = {styles.imgContainer}>
                 {images.map((url) => (
-                    <img className = {styles.img} src={url} alt={`Gallery image}`} />
+                    <img id={viewPort} key = {url} className = {styles.img} src={url} alt={`Gallery image}`} />
                 ))}
             </div>
         </>
