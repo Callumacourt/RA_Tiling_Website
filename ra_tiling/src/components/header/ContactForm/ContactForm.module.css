@@ -1,0 +1,41 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction:column;
+    text-align: center;
+    width: 35%;
+}
+
+.formGroup input {
+    width:75%;
+    text-align: center;
+    align-self: center;
+}
+
+.formGroup input, .formGroup textarea {
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+.formGroup label {
+    margin-bottom: 1vh;
+}
+
+textarea {
+    height: 400px;
+    padding: 10px;
+}
+
+.submitBtn {
+    width: 100%;
+}
+
+.hidden, .active {
+    height: 3.5vh;
+    margin-top: 10px;
+    color: red;
+}
