@@ -1,6 +1,7 @@
 import express from "express";
 import { syncWithDrive } from "./controllers/webHookController";
 import { fetchGalleryController } from "./controllers/fetchGalleryController";
+import { contactController } from "./controllers/contactController";
 
 const app = express();
 app.use(express.json());
@@ -15,7 +16,11 @@ app.get('/', (req, res) => {
 
 app.get('/fetch-gallery', fetchGalleryController);
 
-app.listen(PORT, (error) => {
+app.post('/contactForm', contactController);
+
+const server = app.listen(PORT, (error) => {
     if (error) throw error;
     console.log(`Server running on port ${PORT}`);
 });
+
+server.requestTimeout = 10000;

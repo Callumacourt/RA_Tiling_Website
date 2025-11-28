@@ -1,5 +1,5 @@
 import {GalleryPage, HomePage, AboutPage, ContactPage} from "../pages/index.tsx"
-import Header from "../components/header/Header.tsx";
+import Header from "../components/Header/Header.tsx";
 import { Outlet } from "react-router";
 import { ErrorEle } from "../ErrorEle.tsx";
 

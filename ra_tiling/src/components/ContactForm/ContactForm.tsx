@@ -1,22 +1,25 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import Loader from  '../Loader/Loader';
 import styles from './ContactForm.module.css';
 
 type FormDetails = {
   fullName: string;
-  mobile: string;
+  email: string;
   enquiry: string;
 };
 
 type FormErrors = Partial<Record<keyof FormDetails, string>>;
 
 export default function ContactForm() {
+
   const [formDetails, setFormDetails] = useState<FormDetails>({
     fullName: "",
-    mobile: "",
+    email: "",
     enquiry: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
+  const [submitStatus, setSubmitStatus] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.currentTarget;
@@ -27,21 +30,41 @@ export default function ContactForm() {
 
   const validate = (data: FormDetails): FormErrors => {
     const next: FormErrors = {};
-    const ukPhoneRegex = /^(?:\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!data.fullName.trim()) next.fullName = "Full name is required";
-    if (!data.mobile.trim()) next.mobile = "Mobile is required";
+    if (!data.email.trim()) next.email = "Email is required";
     if (!data.enquiry.trim()) next.enquiry = "Enquiry is required";
-    if (data.mobile.trim() && !ukPhoneRegex.test(data.mobile)) next.mobile = "Invalid UK phone number";
+    if (data.email.trim() && !emailRegex.test(data.email)) next.email = "Invalid email address";
     return next;
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const nextErrors = validate(formDetails);
     setErrors(nextErrors);
+    
     if (Object.keys(nextErrors).length > 0) return;
-    // submit
+
+    try {
+      setSubmitStatus('loading')
+
+      const res = await fetch ('/contactForm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formDetails),
+      })
+
+      if (res.status === 200 && res.ok) {
+        setSubmitStatus("Thank you for your enquiry, we'll be in touch soon.")
+      }
+
+    } catch (error) {
+      setSubmitStatus('There was an unexpected error. Try again or contact us at...')
+      console.log(error);
+    }
   };
 
   return (
@@ -57,15 +80,15 @@ export default function ContactForm() {
         <span className = {errors.fullName ? styles.active : styles.hidden}>{errors.fullName || ""}</span>
     </div>
     <div className = {styles.formGroup}>
-        <label htmlFor="mobile">Mobile</label>
+        <label htmlFor="email">Email</label>
         <input
-          id="mobile"
-          name="mobile"
-          type="tel"
-          value={formDetails.mobile}
+          id="email"
+          name="email"
+          type="email"
+          value={formDetails.email}
           onChange={handleChange}
         />
-        <span className = {errors.mobile ? styles.active : styles.hidden}>{errors.mobile || ""}</span>
+        <span className = {errors.email ? styles.active : styles.hidden}>{errors.email || ""}</span>
     </div>
     <div className = {styles.formGroup}>
       <label htmlFor="enquiry"> Enquiry</label>
@@ -79,7 +102,8 @@ export default function ContactForm() {
       </div>
         
         <div className = {styles.formGroup}>
-        <button className = {styles.submitBtn} type="submit">Send</button>
+        <button className = {styles.submitBtn} type="submit">{submitStatus === 'loading' ?  <Loader/> : 'Send'}</button>
+        {submitStatus === "Thank you for your enquiry, we'll be in touch soon." && <span>{submitStatus}</span>}
       </div>
     </form>
   );

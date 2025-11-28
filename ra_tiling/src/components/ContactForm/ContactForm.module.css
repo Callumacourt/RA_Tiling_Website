@@ -7,6 +7,7 @@ form {
     display: flex;
     flex-direction:column;
     text-align: center;
+    align-items: center;
     width: 35%;
 }
 
@@ -28,10 +29,13 @@ form {
 textarea {
     height: 400px;
     padding: 10px;
+    width: 75%;
 }
 
 .submitBtn {
-    width: 100%;
+    width: 75%;
+    display: flex;
+    justify-content: center;
 }
 
 .hidden, .active {
