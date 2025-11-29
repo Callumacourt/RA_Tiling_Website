@@ -1,6 +1,7 @@
-import syncDriveToS3 from "../services/syncDriveToS3.tsx";
+import syncDriveToS3 from "../services/syncDriveToS3.ts";
+import {Request, Response} from "express";
 
-export async function syncWithDrive(req, res) {
+export async function syncWithDrive(req: Request, res: Response) {
     try {
         await syncDriveToS3();
         res.status(200).send("Sync begin");

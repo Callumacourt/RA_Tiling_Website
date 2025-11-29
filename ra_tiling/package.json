@@ -8,8 +8,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "ts": "node --loader ts-node/esm",
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "vite",
+    "build": "vite build",
     "start": "next start"
   },
   "dependencies": {
@@ -21,13 +21,18 @@
     "pg": "^8.16.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-loader-spinner": "^8.0.0",
+    "react-router": "^7.9.3",
+    "resend": "^6.3.0",
     "sharp": "^0.34.3",
-    "tslib": "^2.8.1"
+    "tslib": "^2.8.1",
+    "typescript-plugin-css-modules": "^5.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
+    "@types/express": "^5.0.3",
     "@types/node": "^24.3.1",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
@@ -43,5 +48,12 @@
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2",
     "vitest": "^3.2.4"
+  },
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   }
 }

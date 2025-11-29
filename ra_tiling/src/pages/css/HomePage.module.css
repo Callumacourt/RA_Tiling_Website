@@ -1,0 +1,25 @@
+.heroContainer {
+    background-image: url("../../assets/hero2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: fill;
+    max-height: 100%;
+    padding-inline: 5vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7rem;
+    justify-content: center;
+}
+
+.heroContainer button {
+    margin-top: 2vh;
+    width: 45%;
+}
+
+@media only screen and (min-width: 1028px) {
+    .heroContainer {
+        align-items: center;
+    }
+}
