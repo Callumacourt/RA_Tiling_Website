@@ -1,0 +1,36 @@
+.dropDownContainer {
+    height: 100%;
+    z-index: 2;
+    position: absolute;
+    background-image: url("../../assets/dropdownBack.jpg");
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropDownContainer ul {
+    padding-top: 20%;
+    list-style: none;
+    font-size: 1.5rem;
+}
+
+.dropDownContainer ul li {
+    padding-bottom: 10%;
+}
+
+.dropDownContainer img {
+    object-fit: cover;
+}
+
+.dropDownContainer button {
+    background-color: transparent;
+    color:black;
+    align-self: end;
+    margin-top: 7,5%;
+    font-size: 1.5rem;
+}
+
+.dropDownContainer li a {
+    color: black !important;
+}
