@@ -1,7 +1,8 @@
 .dropDownContainer {
     height: 100%;
     z-index: 2;
-    position: absolute;
+    position: fixed;
+    top: 0;
     background-image: url("../../assets/dropdownBack.jpg");
     width: 100%;
     background-color: white;

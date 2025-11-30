@@ -7,7 +7,10 @@
     max-height: 100%;
     padding-inline: 5vw;
     height: 100vh;
+    margin-top: -100px;
     display: flex;
+    z-index: 0;
+    position: relative;
     flex-direction: column;
     font-size: 0.7rem;
     justify-content: center;
@@ -17,6 +20,19 @@
     margin-top: 2vh;
     width: 45%;
 }
+
+.aboutUs {
+    height: 100vh;
+    background-image: url("../../assets/patios/outside4.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+section {
+    padding: 2vh 4vw;
+}
+
 
 @media only screen and (min-width: 1028px) {
     .heroContainer {
