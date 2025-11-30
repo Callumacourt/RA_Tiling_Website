@@ -2,12 +2,14 @@
 .header button {
     background-color: transparent;
     padding-right: 15%;
+    width: fit-content;
 }
 
 .header {
     position: fixed;
     width: 100%;
     z-index: 1;
+    background-color: transparent;
     top: 0;
 }
 

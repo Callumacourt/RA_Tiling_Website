@@ -25,10 +25,9 @@ export default function Header () {
         <header className = {styles.header}>
             <nav>
                 <button onClick={() => setIsExpanded(true)} className = {styles.mobileDropdown}><img src={dropDownIcn} alt="Open" /></button>
-                <li> <Link to = "/">Ra Tiling & Stonemasonry</Link></li>
                 <ul className = {styles.desktopNav}>
                     <li><Link to = "/gallery">Gallery</Link></li>
-                    <li><Link to = "/about">About Us</Link></li>
+                    <li><Link to = "/tiles">Tiles</Link></li>
                     <li><Link to = "/contact">Contact</Link></li>
                 </ul>
             </nav>

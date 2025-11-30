@@ -3,17 +3,21 @@ import styles from "./MobileDropdown.module.css";
 
 export default function MobileDropdown ({expanded, setIsExpanded}) {
 
+    const closePage = () => {
+        setIsExpanded(false);
+    }
+
     return (
         <>
         {expanded && 
             <div className={styles.dropDownContainer}>
-                <button onClick={() => setIsExpanded(false)}>X</button>
+                <button onClick={closePage}>X</button>
                 <nav>
                     <ul>
-                        <li><Link>Gallery</Link></li>
-                        <li><Link>Tiles</Link></li>
-                        <li><Link>About Us</Link></li>
-                        <li><Link>Contact</Link></li>
+                        <li onClick={closePage}><Link to="/">Home</Link></li>
+                        <li onClick={closePage}><Link to="/gallery">Gallery</Link></li>
+                        <li onClick={closePage}><Link to="/tiles">Tiles</Link></li>
+                        <li onClick={closePage}><Link to="/contact">Contact</Link></li>
                     </ul>
                 </nav>
             </div>
