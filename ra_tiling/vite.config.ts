@@ -14,5 +14,5 @@ export default defineConfig({
       '/fetch-gallery': 'http://localhost:3001',
       '/contactForm': 'http://localhost:3001',
     },
-  }
+  },
 })

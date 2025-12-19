@@ -1,12 +1,21 @@
 .card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: fit-content, 1fr;
+    grid-template-rows: 50px fit-content;
     gap: 10px;
-    background-color:gray ;
+    background-color: black;
+    color: white;
+    flex: 0 0 88vw;
+    scroll-snap-align: start;
     border-radius: 10px;
+    width: 100%;
     padding: 5vmin;
-    align-items: center;
+    align-items: start;
+}
+
+.cardScrol {
+    overflow-x: visible;
+    flex-wrap: wrap;
 }
 
 .starContainer {
