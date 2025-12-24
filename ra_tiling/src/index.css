@@ -28,6 +28,11 @@ img, picture, video, canvas, svg {
   max-width: 100%;
 }
 
+html {
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
+
 /* 7. Inherit fonts for form controls */
 input, button, textarea, select {
   font: inherit;

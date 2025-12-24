@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import styles from './header.module.css';
-import dropDownIcn from "../../assets/dropdownIcn.svg";
+import dropDownIcn from "../../assets/icons/dropdown2.svg";
 import { useEffect, useState } from "react";
 import MobileDropdown from "./MobileDropdown";
 

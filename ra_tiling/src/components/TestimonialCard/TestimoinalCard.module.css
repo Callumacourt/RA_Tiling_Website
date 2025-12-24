@@ -1,9 +1,9 @@
 .card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px fit-content;
+    grid-template-rows: 50px 1fr;
     gap: 10px;
-    background-color: black;
+    background-color:#171b1a;
     color: white;
     flex: 0 0 88vw;
     scroll-snap-align: start;
@@ -22,6 +22,14 @@
     display: flex;
     grid-row: 1;
     grid-column: 2;
+    gap: 6px;           
+    align-items: center;
+}
+
+.star {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
 }
 
 .card h3 {
