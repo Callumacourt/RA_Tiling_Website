@@ -60,3 +60,8 @@
     grid-column: 1;
     grid-row: 1;
 }
+
+.link a {
+    color: white;
+    text-decoration: underline;
+}

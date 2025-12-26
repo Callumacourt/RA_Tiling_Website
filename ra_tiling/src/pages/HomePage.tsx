@@ -5,6 +5,7 @@ import styles from "./css/HomePage.module.css";
 import { useRef, useState } from 'react';
 import ServiceHero from "../components/ServiceHero/ServiceHero";
 import chevron from ".././assets/icons/chevron-right.svg";
+import { Link } from "react-router";
 
 export default function HomePage() {
     const scrollRef = useRef(null);
@@ -23,11 +24,10 @@ export default function HomePage() {
         <main>
             <div className={styles.heroContainer}>
                 <div className={styles.hero}>
-                    <h1>30+ Years Of Tiling and Stonemasonry Experience,</h1>
-                    <h2>For when you just want things done <i>right</i>.</h2>
+                    <h1>30+ Years Of Tiling and Stonemasonry Experience</h1>
+                    <h2>We do things <i>right</i>.</h2>
                 </div>
-
-                <button>Get A Free Quote</button>
+                <button><Link to="/contact">Get A Free Quote</Link></button>
             </div>
         </main>
         <section className={styles.services}>
@@ -72,7 +72,7 @@ export default function HomePage() {
         <section className = {styles.affiliate}>
             <section className = {styles.cta}>
             <h2>Ready to Start Your Project?</h2>
-            <button>Get a Free Quote</button>
+            <button><Link to = "/contact">Get a Free Quote</Link></button>
             </section>
             <div className={styles.affiliateWrapper}>
                 <h3>Tile Supply</h3>

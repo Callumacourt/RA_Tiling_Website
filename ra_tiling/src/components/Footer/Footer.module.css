@@ -1,0 +1,47 @@
+.footer {
+    background-color: white;
+    color: black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2vmin;
+    padding: 2vh 6vw;
+}
+
+.links {
+    justify-self: start;
+    list-style: none;
+    padding-left: 0px;
+    font-family: var(--font-heading);
+}
+
+.links li {
+    font-size: 0.9rem;
+    margin-top: 4px;
+    font-family: var(--font-body);
+}
+
+.main {
+    grid-column: 1/3;
+    grid-row: 1;
+    font-family: var(--font-heading);
+}
+
+.main span {
+    display: flex;
+    justify-content: space-between;
+    gap: 2vw;
+}
+
+.logo {
+    justify-self: end;
+    height: 32px;
+    width: 32x;
+}
+
+.socials {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 4vw;
+
+}

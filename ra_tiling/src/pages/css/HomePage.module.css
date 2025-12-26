@@ -30,7 +30,6 @@
    Component Styling (mobile first)
    ============================================ */
 
-
 .heroContainer {
     background-image: url("../../assets/hero8.jpg");
     background-size: cover;
@@ -49,27 +48,37 @@
     font-family: var(--font-heading);
 }
 
+.heroContainer::before, .affiliate::before, .testimonials::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,0.05);
+    pointer-events: none;
+    z-index: 0;
+}
+
 body {
-    background-image: url("../../assets/photo-wall-texture-pattern.jpg");
+    background-image: url("../../assets/bg11.jpg");
     background-size: contain;
     background-repeat: repeat;
 }
 
 .hero {
-    background-color: rgba(0,0,0,0.5);
     border-radius: 25px;
     padding: 4vh 6vw;
     height: fit-content;
+    background-color: rgba(0,0,0,0.10);
 }
 
 .heroContainer h1 {
     font-size: var(--text-3xl);
     font-weight: 700;
+    color: #dbdacb;
     line-height: 1.15;
     margin-bottom: var(--spacing-sm);
 }
 
-.heroContainer p {
+.heroContainer h2 {
     font-family: var(--font-body);
     font-size: var(--text-base);
     line-height: 1.6;
@@ -77,14 +86,21 @@ body {
 
 .heroContainer button {
     margin-top: var(--spacing-md);
-    width: 50%;
-    font-size: var(--text-sm);
+    width: 100%;
     padding: 1vh 4vw;
+    background-color:#baa26b;
+}
+
+.heroContainer button a {
+    color: white;
+    font-size: var(--text-sm);
+    font-weight: bold;
     font-weight: 600;
 }
 
 .query {
     color: white;
+    padding: 2vh 4vw;
 }
 
 .services{
@@ -97,10 +113,6 @@ body {
     padding: 4vh 1vw;
     margin-top: 2vh;
     text-align: center;
-}
-
-.query {
-    padding: 2vh 4vw;
 }
 
 .cardContainer {
@@ -133,10 +145,14 @@ body {
 .smallLink {
     font-family: var(--font-body);
     font-size: var(--text-xs);
-    color: #666;
     display: flex;
     justify-content: end;
     margin-bottom: var(--spacing-lg); 
+}
+
+.smallLink a {
+    color: black;
+    text-decoration: underline;
 }
 
 .testimonials {
@@ -161,10 +177,8 @@ body {
 }
 
 .aboutUs {
-    height: 40vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: rgba(0,0,0,0.20);
+    padding: 2vh 4vw;
 }
 
 section {
@@ -275,8 +289,16 @@ section li {
 }
 
 .cta button {
-    background-color:#a49680;
-    border-radius: 8px;
+    background-color:#55352c;
+    border-radius: 25px;
+    font-weight: 50;
+    margin-top: 5vh;
+    padding: 2vw 10vw;
+}
+
+.cta h2 {
+    font-weight: 100;
+    font-size: var(--text-3xl);
 }
 
 

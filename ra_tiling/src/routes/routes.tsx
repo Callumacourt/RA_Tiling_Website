@@ -1,5 +1,6 @@
 import {GalleryPage, HomePage, ContactPage} from "../pages/index.tsx"
 import Header from "../components/Header/Header.tsx";
+import Footer from "../components/Footer/Footer.jsx";
 import { Outlet } from "react-router";
 import { ErrorEle } from "../ErrorEle.tsx";
 
@@ -10,6 +11,7 @@ export const routes = [
         <>
         <Header/>
         <Outlet/>
+        <Footer/>
         </>
         ),
         children: [

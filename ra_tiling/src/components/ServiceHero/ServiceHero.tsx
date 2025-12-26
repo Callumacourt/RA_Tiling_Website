@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { TouchEvent, useEffect, useState } from "react";
 import styles from "./ServiceHero.module.css";
 
 type Props = {
@@ -9,18 +9,18 @@ type Props = {
 
 export default function ServiceHero({ title, images, line } : Props) {
   const [idx, setIdx] = useState(0);
-  const INTERVAL = 3000;
+  const INTERVAL = 4000;
 
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const minSwipeDistance = 50; // Minimum distance for a swipe
 
-  const onTouchStart = (e) => {
+  const onTouchStart = (e : TouchEvent) => {
     setTouchEnd(0); // Reset
     setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const onTouchMove = (e) => {
+  const onTouchMove = (e : TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
