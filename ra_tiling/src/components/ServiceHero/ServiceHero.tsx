@@ -1,4 +1,4 @@
-import { TouchEvent, useEffect, useState } from "react";
+import { TouchEvent, useState } from "react";
 import styles from "./ServiceHero.module.css";
 
 type Props = {
@@ -9,7 +9,6 @@ type Props = {
 
 export default function ServiceHero({ title, images, line } : Props) {
   const [idx, setIdx] = useState(0);
-  const INTERVAL = 4000;
 
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -32,23 +31,12 @@ export default function ServiceHero({ title, images, line } : Props) {
     const isRightSwipe = distance < -minSwipeDistance;
     
     if (isLeftSwipe) {
-      // Swipe left - go to next image
       setIdx(prev => (prev + 1) % images.length);
     }
     if (isRightSwipe) {
-      // Swipe right - go to previous image
       setIdx(prev => (prev - 1 + images.length) % images.length);
     }
   };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-        setTimeout(() => {
-            setIdx(prev => (prev + 1) % images.length);
-        }, 500)
-    }, INTERVAL)
-    return () => clearInterval(timer);
-  }, [idx, images.length, INTERVAL])
 
   return (
 <div className={styles.carousel} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} onTouchMove={onTouchMove}>

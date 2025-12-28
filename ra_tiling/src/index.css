@@ -31,6 +31,7 @@ img, picture, video, canvas, svg {
 html {
   scrollbar-gutter: stable;
   overflow-y: scroll;
+  background-color: white !important;
 }
 
 /* 7. Inherit fonts for form controls */

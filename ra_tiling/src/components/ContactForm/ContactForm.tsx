@@ -70,7 +70,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit}>
     <div className={styles.formGroup}>
-        <label htmlFor="fullName">Full name</label>
+        <label htmlFor="fullName">Full Name</label>
         <input
           id="fullName"
           name="fullName"

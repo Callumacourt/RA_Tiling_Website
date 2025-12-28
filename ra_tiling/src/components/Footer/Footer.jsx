@@ -1,7 +1,6 @@
 import styles from "./Footer.module.css";
-import whatsapp from "../../assets/icons/whatsapp_3670025.png"
+import whatsapp from "../../assets/icons/whatsappIcn.png"
 import instagram from "../../assets/icons/instagram.svg"
-import logo from "../../assets/icons/logo.png"
 
 export default function Footer () {
     return (
@@ -18,8 +17,8 @@ export default function Footer () {
                 <li>Contact</li>
             </ul>
             <span className = {styles.socials}>
-                <img src={whatsapp} alt="Whatsapp Link" />
-                <img src={instagram} alt="Instagram Link" />
+                <a href="https://wa.me/447926262989"><img src={whatsapp} alt="Whatsapp Link" /></a>
+                <a href= ""><img src={instagram} alt="Instagram Link" /></a>
             </span>
         </footer>
     )

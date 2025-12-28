@@ -5,6 +5,9 @@ import styles from "./css/HomePage.module.css";
 import { useRef, useState } from 'react';
 import ServiceHero from "../components/ServiceHero/ServiceHero";
 import chevron from ".././assets/icons/chevron-right.svg";
+import thumbs from "../assets/icons/thumbs-up.svg";
+import map from "../assets/icons/map-pin.svg";
+import clock from "../assets/icons/clock.svg";
 import { Link } from "react-router";
 
 export default function HomePage() {
@@ -30,6 +33,11 @@ export default function HomePage() {
                 <button><Link to="/contact">Get A Free Quote</Link></button>
             </div>
         </main>
+        <section className = {styles.intro}>
+            <span><img src={thumbs} alt="A thumbs up icon"/> <p>88 Positive Reviews on Checkatrade</p></span>
+            <span><img src={map} alt="A location icon"/> <p>Based in South London</p></span>
+            <span><img src={clock} alt="A location icon"/> <p>Always On Time</p></span>
+        </section>
         <section className={styles.services}>
             <div className = {styles.query}>
                 <h2>Our Services</h2>

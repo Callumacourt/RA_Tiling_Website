@@ -4,6 +4,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2vmin;
+    position: relative;
+    z-index: 10;
     padding: 2vh 6vw;
 }
 
