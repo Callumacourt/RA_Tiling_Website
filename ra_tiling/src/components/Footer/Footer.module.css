@@ -16,10 +16,12 @@
     font-family: var(--font-heading);
 }
 
-.links li {
+.links a {
     font-size: 0.9rem;
     margin-top: 4px;
+    cursor: pointer;
     font-family: var(--font-body);
+    color: black;
 }
 
 .main {
