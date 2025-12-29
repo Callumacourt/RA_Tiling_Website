@@ -2,10 +2,23 @@ import { useEffect, useMemo, useState } from "react";
 import fetchGallery from "../utils/fetchGallery";
 import styles from './css/GalleryPage.module.css';
 import { getWindowWidth } from "../utils/getViewportDimension";
+import  ExpandedImage  from "../components/Gallery/ExpandedImg";
+import ExpandedCategory from "../components/Gallery/ExpandedCategory";
+
+export type ExpandedState = {
+    image: string;
+    cat: string;
+}
+
+export type ExpandedCategoryType = {
+    category : string;
+}
 
 export default function GalleryPage() {
     const [images, setImages] = useState<string[]>([]);
     const [viewPort, setViewport] = useState(getWindowWidth());
+    const [expanded, setExpanded] = useState<ExpandedState | null>(null);
+    const [expandedCategory, setExpandedCategory] = useState();
 
 
     const getCategories = (imgs: string[]) => {
@@ -49,11 +62,28 @@ export default function GalleryPage() {
 
     return (
         <main className = {styles.gallery}>
+            {expanded && (
+                <ExpandedImage 
+                setExpanded = {setExpanded} 
+                image = {expanded.image} 
+                cat = {expanded.cat}
+                images = {images.filter(img => img.includes(expanded?.cat))}
+                />
+            )}
+            {
+                expandedCategory && (
+                    <ExpandedCategory 
+                    images = {images.filter(img => img.includes(expandedCategory))} 
+                    cat = {expandedCategory} 
+                    setExpandedCategory={setExpandedCategory}
+                    />
+                )
+            }
             {Object.entries(categories).map(([category, urls]) => (
                 <section className = {styles.category}>
                     <h2>{category}</h2>
                     <div className = {styles.imgContainer}>
-                        {urls.map((url) => (<img key={url} src={url} alt={`${category} tile job`}/>))}
+                        {urls.map((url) => (<img onClick={() => setExpandedCategory(category)} key={url} src={url} alt={`${category} tile job`}/>))}
                     </div>
                     <button>See more</button>
                 </section>

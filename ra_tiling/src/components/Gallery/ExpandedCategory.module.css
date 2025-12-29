@@ -1,0 +1,30 @@
+.expandedContainer {
+    position: fixed;
+    top: 0%;
+    background-color: #ffffff;
+    min-height: 100%;
+    gap: 5px;
+    left: 0px;
+    padding-inline: 2vw;
+    padding-top: 5vh;
+}
+
+.expandedContainer section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.expandedContainer section img {
+    border-radius: 5px;
+}
+
+.categoryHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.categoryHeader button {
+    border-radius: 25px;
+}
