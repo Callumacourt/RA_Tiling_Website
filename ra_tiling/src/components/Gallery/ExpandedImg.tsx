@@ -1,5 +1,5 @@
 import styles from "./ExpandedImg.module.css";
-import { useRef } from "react";
+import { use, useRef, useState } from "react";
 import { ExpandedState } from "../../pages/GalleryPage";
 
 interface ExpandedImgProps {
@@ -12,17 +12,35 @@ interface ExpandedImgProps {
 
 export default function ExpandedImg ({ image, cat, images, setExpanded }: ExpandedImgProps) {
     const currentIndex = images.indexOf(image);
+    const nextImgRef = useRef("");
+    const prevImgRef = useRef("");
     const touchStartX = useRef<number | null>(null);
+    const [ slideDirection, setSlideDirection ] = useState("");
 
 
     const handlePrev = () => {
         const prevIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
-        setExpanded({ image: images[prevIndex], cat });
+        const prevImage = images[prevIndex];
+        prevImgRef.current = prevImage; 
+        setSlideDirection("prev");
+        setTimeout(() => {
+            setExpanded({ image: prevImage, cat });
+            setSlideDirection("");
+            prevImgRef.current = "";
+        }, 300);
+
     }
 
-    const handleNext= () => {
-        const prevIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
-        setExpanded({ image: images[prevIndex], cat });
+    const handleNext = () => {
+        const nextIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+        const nextImage = images[nextIndex];
+        nextImgRef.current = nextImage;
+        setSlideDirection("next");
+        setTimeout(() => {
+            setExpanded({ image: nextImage, cat });
+            setSlideDirection("");
+            nextImgRef.current = "";
+        }, 300);
     }
 
     const handleTouchStart = (e: React.TouchEvent) => {
@@ -46,7 +64,31 @@ export default function ExpandedImg ({ image, cat, images, setExpanded }: Expand
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
             >
-                <img className={styles.heroImg} src={image} alt="A job" />
+                <img 
+                    className={`${styles.heroImg} 
+                    ${slideDirection === "next" ? styles.slideOutLeft : ""}
+                    ${slideDirection === "prev" ? styles.slideOutRight : ""}`}
+                    src={image} 
+                    alt="A job" 
+                />
+                {nextImgRef.current !== "" && (
+                    <img
+                    src={nextImgRef.current}
+                    className = {`${styles.heroImg}
+                    ${slideDirection === "next" ? styles.slideInRight : ""} 
+                    ${slideDirection === "prev" ? styles.slideInLeft : ""}
+                `}
+                    />
+                )}
+                {prevImgRef.current !== "" && (
+                    <img
+                        src={prevImgRef.current}
+                        className={`${styles.heroImg}
+                        ${slideDirection === "prev" ? styles.slideInLeft : ""} 
+                        ${slideDirection === "next" ? styles.slideInRight : ""}
+                    `}
+                    />
+                )}
                 <button onClick={handlePrev} className={styles.prevBtn}>&lt;</button>
                 <button onClick={handleNext} className={styles.nextBtn}>&gt;</button>
             </div>

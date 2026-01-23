@@ -12,6 +12,7 @@
 
 .imgWrapper {
     flex: 1;                    
+    overflow:hidden;
     min-height: 0;
     width: 100%;
     position: relative;
@@ -83,4 +84,53 @@
     object-fit: cover;
     flex-shrink: 0;
     border-radius: 6px;
+}
+
+.heroImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    position: absolute;  
+    top: 0;
+    left: 0;
+    z-index: 1;  
+}
+
+@keyframes slideOutLeft {
+    from {transform: translateX(0);}
+    to {transform: translateX(-100%);}
+}
+
+@keyframes slideInRight {
+    from {transform : translateX(100%);}
+    to {transform: translateX(0)};
+}
+
+@keyframes slideOutRight {
+    from {transform: translateX(0);}
+    to {transform: translateX(100%);}
+}
+
+@keyframes slideInLeft {
+    from {transform: translateX(-100%);}
+    to {transform: translateX(0)}
+}
+
+.slideOutLeft {
+    animation: slideOutLeft 300ms ease-out;
+    z-index: 0;
+}
+
+.slideInRight {
+    animation: slideInRight 300ms ease-in-out;
+}
+
+.slideInLeft {
+    animation: slideInLeft 300ms ease-in-out;
+}
+
+.slideOutRight {
+    animation: slideOutRight 300ms ease-in-out;
+    z-index: 0;
 }
