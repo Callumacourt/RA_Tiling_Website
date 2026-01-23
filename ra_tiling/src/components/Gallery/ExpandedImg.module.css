@@ -1,37 +1,86 @@
 .expandedContainer {
-    margin: 2vh 5vw;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: #ffffff;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 2vh 5vw;
+    overflow: hidden;          
 }
 
 .imgWrapper {
-    height: 70vh;
+    flex: 1;                    
+    min-height: 0;
+    width: 100%;
     position: relative;
+    cursor: pointer;
 }
 
 .imgWrapper img {
+    width: 100%;
     height: 100%;
+    object-fit: contain;        
+    display: block;
 }
 
-.prevBtn, .nextBtn {
-    position: absolute;
-    transform: translateY(-50%);
-    top: 50%;
-}
-
-.prevBtn {
-    left: 10px;
-}
-
+.prevBtn,
 .nextBtn {
-    right: 10px;
+    display: none;              
+}
+
+@media (min-width: 768px) {
+    .prevBtn,
+    .nextBtn {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+    }
+
+    .prevBtn:hover,
+    .nextBtn:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .prevBtn { left: 10px; }
+    .nextBtn { right: 10px; }
+}
+
+.closeBtn {
+    width: fit-content;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    align-self: flex-end;
 }
 
 .imgNav {
-    height: 25vh;
+    height: 18vh;
+    flex-shrink: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .imgNav img {
     height: 100%;
+    width: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 6px;
 }

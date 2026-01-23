@@ -18,7 +18,7 @@ export default function GalleryPage() {
     const [images, setImages] = useState<string[]>([]);
     const [viewPort, setViewport] = useState(getWindowWidth());
     const [expanded, setExpanded] = useState<ExpandedState | null>(null);
-    const [expandedCategory, setExpandedCategory] = useState();
+    const [expandedCategory, setExpandedCategory] = useState<string | undefined>();
 
 
     const getCategories = (imgs: string[]) => {
@@ -83,9 +83,10 @@ export default function GalleryPage() {
                 <section className = {styles.category}>
                     <h2>{category}</h2>
                     <div className = {styles.imgContainer}>
-                        {urls.map((url) => (<img onClick={() => setExpandedCategory(category)} key={url} src={url} alt={`${category} tile job`}/>))}
+                        {/* Display first 4 images for each category */}
+                        {urls.slice(0,4).map((url) => (<img onClick={() => setExpandedCategory(category)} key={url} src={url} alt={`${category} tile job`}/>))}
                     </div>
-                    <button>See more</button>
+                    <button onClick={()=>setExpandedCategory(category)}>See more</button>
                 </section>
             ))}
         </main>

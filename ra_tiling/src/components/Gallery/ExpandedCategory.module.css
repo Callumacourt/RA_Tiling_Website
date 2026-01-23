@@ -6,6 +6,8 @@
     gap: 5px;
     left: 0px;
     padding-inline: 2vw;
+    height: 100vh;
+    overflow-y: auto;
     padding-top: 5vh;
 }
 
@@ -15,6 +17,10 @@
     gap: 10px;
 }
 
+.expandedContainer img {
+    cursor: pointer;
+}
+
 .expandedContainer section img {
     border-radius: 5px;
 }
@@ -22,9 +28,11 @@
 .categoryHeader {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 .categoryHeader button {
-    border-radius: 25px;
+    border-radius: 55px;
+    margin-right: 15px;
+    font-size: 0.8rem;
 }
